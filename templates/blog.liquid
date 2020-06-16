@@ -1,0 +1,147 @@
+{% layout 'blog' %}
+      
+  <div data-collapse="medium" data-animation="default" data-duration="400" role="banner" class="navigation w-nav">
+    <div class="navigation-items"><a href="/" class="logo-link w-nav-brand"><img src="{{ 'janesiblue.png' | asset_url }}" width="220" alt="" class="logo-image"></a>
+      <div class="navigation-wrap">
+        <nav role="navigation" class="navigation-items w-nav-menu">{% for link in linklists['navigation-menu'].links %}<a href="{{ link.url }}" class="navigation-item w-nav-link">{{ link.title }}</a>{% endfor %}{% unless customer %}<a href="/account/login" class="login-item w-nav-link">{{ 'blog.A_0' | t }}</a>{% endunless %}{% if customer %}<a href="/account" class="login-item w-nav-link">{{ 'blog.A_1' | t }}</a>{% endif %}</nav>
+        <div data-node-type="commerce-cart-wrapper" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper"><a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink button cc-cart w-inline-block"><svg class="w-commerce-commercecartopenlinkicon" width="17px" height="17px" viewBox="0 0 17 17"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M2.60592789,2 L0,2 L0,0 L4.39407211,0 L4.84288393,4 L16,4 L16,9.93844589 L3.76940945,12.3694378 L2.60592789,2 Z M15.5,17 C14.6715729,17 14,16.3284271 14,15.5 C14,14.6715729 14.6715729,14 15.5,14 C16.3284271,14 17,14.6715729 17,15.5 C17,16.3284271 16.3284271,17 15.5,17 Z M5.5,17 C4.67157288,17 4,16.3284271 4,15.5 C4,14.6715729 4.67157288,14 5.5,14 C6.32842712,14 7,14.6715729 7,15.5 C7,16.3284271 6.32842712,17 5.5,17 Z" fill="currentColor" fill-rule="nonzero"></path></g></svg><div class="w-inline-block">{{ 'blog.DIV_2' | t }}</div><div class="w-commerce-commercecartopenlinkcount cart-quantity-2" udy-el="cart-count">{{ cart.item_count }}</div></a>
+          <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal">
+            <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer">
+              <div class="w-commerce-commercecartheader">
+                <h4 class="w-commerce-commercecartheading">{{ 'blog.H4_3' | t }}</h4><a href="#" data-node-type="commerce-cart-close-link" class="w-commerce-commercecartcloselink w-inline-block"><svg width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg></a></div>
+              <div class="w-commerce-commercecartformwrapper">
+                <form data-node-type="commerce-cart-form" class="w-commerce-commercecartform {% if cart.item_count == 0 %}udesly-display-none{% endif %}">
+                  <ul role="list" class="mini-cart-list" udy-el="items-list">
+                    {% for item in cart.items %}<li class="mini-cart-list-item">
+                      <div class="product-row">
+                        <div class="mini-cart-left-block"><a href="/cart/change?line={{ forloop.index }}&amp;amp;quantity=0" class="remove-product-link w-inline-block" udy-el="remove-item"></a>
+                          <div class="mini-cart-image" style="background-image: url({{ item | img_url: 'master' }})"></div>
+                          <div class="product-info-wrapper-2 mini-cart-info-wrapper"><a href="{{ item.product.url }}">{{ item.product.title }}</a>
+                            <div class="text-block-79" href="/collections/vendors?q={{ item.vendor }}">{{ item.vendor }}</div>
+                          </div>
+                        </div>
+                        <div class="price-wrapper">
+                          <div class="mini-cart-price-wrapper">
+                            <div class="text-block-78">{{ item.quantity }}</div>
+                            <div class="text-block-76">{{ 'blog.DIV_4' | t }}</div>
+                            <div class="text-block-78">{{ item.price | money }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>{% endfor %}
+                  </ul>
+                  
+                  
+                  <div class="w-commerce-commercecartfooter {% if cart.item_count == 0 %}udesly-display-none{% endif %}" udy-el="cart-actions">
+                    <div class="w-commerce-commercecartlineitem">
+                      <div>{{ 'blog.DIV_5' | t }}</div>
+                      <div class="w-commerce-commercecartordervalue" udy-el="cart-total">{{ cart.total_price | money }}</div>
+                    </div>
+                    <div class="checkout-actions"><a href="/cart" value="Cart" data-node-type="cart-checkout-button" class="w-commerce-commercecartcheckoutbutton" data-loading-text="Hang Tight...">{{ 'blog.A_6' | t }}</a><a href="/checkout" value="Checkout" data-node-type="cart-checkout-button" class="w-commerce-commercecartcheckoutbutton" data-loading-text="Hang Tight...">{{ 'blog.A_7' | t }}</a></div>
+                  </div>
+                </form>
+                <div class="w-commerce-commercecartemptystate {% if cart.item_count != 0 %}udesly-display-none{% endif %}" udy-el="no-items-in-cart">
+                  <div>{{ 'blog.DIV_8' | t }}</div>
+                </div>
+                <div style="display:none" data-node-type="commerce-cart-error" class="w-commerce-commercecarterrorstate">
+                  <div class="w-cart-error-msg" data-w-cart-quantity-error="Product is not available in this quantity." data-w-cart-checkout-error="Checkout is disabled on this site." data-w-cart-general-error="Something went wrong when adding this item to the cart." data-w-cart-cart_order_min-error="Cart failed.">{{ 'blog.DIV_9' | t }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <script id="mini-cart-template">
+          window.udeslyMiniCartTemplate = function(item) {
+            return `<li class="mini-cart-list-item" data-item-id="${item.id}">
+                      <div class="product-row">
+                        <div class="mini-cart-left-block"><a href="${item.remove}" class="remove-product-link w-inline-block" udy-el="remove-item"></a>
+                          <div dimension="master" class="mini-cart-image" style="background-image: url(${item.image})"></div>
+                          <div class="product-info-wrapper-2 mini-cart-info-wrapper"><a href="#">${item.title}</a>
+                            <div class="text-block-79">${item.vendor}</div>
+                          </div>
+                        </div>
+                        <div class="price-wrapper">
+                          <div class="mini-cart-price-wrapper">
+                            <div class="text-block-78">${item.quantity}</div>
+                            <div class="text-block-76"> x</div>
+                            <div class="text-block-78">${item.price}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>`
+          }
+          </script></div>
+        <div class="menu-button w-nav-button"><img src="{{ 'menu-icon_1menu-icon.png' | asset_url }}" width="22" alt="" class="menu-icon"></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container cc-heading-wrap">
+      <h1>{% include 'blog-title' %}</h1>
+      <div class="paragraph-bigger cc-bigger-light">{{ 'blog.DIV_10' | t }}</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      {% paginate blog.articles by settings.blog_posts_limit %}<div class="w-dyn-list">
+        {% unless blog.articles_count == 0 %}<div role="list" class="blog-list-wrap w-dyn-items">
+          {% for article in blog.articles %}<div role="listitem" class="blog-item w-dyn-item"><a href="{{ article.url }}" class="blog-preview-image w-inline-block" style="background-image: url({{ article | img_url: 'master' }})"></a>
+            <div class="blog-summary-wrap"><a href="{{ article.url }}" class="blog-heading-link">{{ article.title }}</a>
+              <div class="paragraph-light">{% include 'blog-post-excerpt' %}</div>
+              <div class="label cc-blog-date">{{ article.published_at | date: '%a, %b %d, %y' }}</div>
+            </div>
+          </div>{% endfor %}
+        </div>
+        {% else %}<div class="status-message cc-no-data w-dyn-empty">
+          <div>{{ 'blog.DIV_11' | t }}</div>
+        </div>{% endunless %}
+      </div>{% endpaginate %}
+    </div>
+  </div>
+  <div class="section cc-subscribe-form">
+    <div class="container cc-subscription-form">
+      <div class="heading-jumbo-small">{{ 'blog.DIV_12' | t }}</div>
+      <div class="paragraph-light cc-subscribe-paragraph">{{ 'blog.DIV_13' | t }}</div>
+      <div class="form-block w-form">{% form 'contact' %}
+        <div udesly-add-class="subscribe-form"></div><input type="email" class="text-field cc-subscribe-text-field w-input" maxlength="256" name="contact[email]" placeholder="Enter your email" id="email" required=""><input type="submit" value="Submit" data-wait="Please wait..." class="button w-button">
+        
+        
+      </div><div class="form-block w-form">{% if form.errors %}<div class="status-message w-form-fail" style="display: inherit;">
+          <div>{% include 'form-errors' %}</div>
+        </div>{% endif %}{% if form.posted_successfully? %}<div class="status-message w-form-done" style="display: inherit;">
+          <div>{{ 'blog.DIV_14' | t }}</div>
+        </div>{% endif %}</div>{% endform %}
+    </div>
+  </div>
+  <div class="section">
+    <div class="section">
+      <div class="container"></div>
+    </div>
+    <div class="container"></div>
+    <div class="wrapper-3">
+      <div class="section-7">
+        <div class="w-layout-grid footer1-grid-2">
+          <div id="w-node-5860412d4b66-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'blog.DIV_15' | t }}</div><a href="https://www.janesicomfort.com/shop/janesi-comfort-gown-black" class="footer1-link-2">{{ 'blog.A_16' | t }}</a><a href="https://www.janesicomfort.com/blankets/blankets" class="footer1-link-2">{{ 'blog.A_17' | t }}</a></div>
+          <div id="w-node-5860412d4b6d-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'blog.DIV_18' | t }}</div><a href="https://www.janesicomfort.com/about" class="footer1-link-2">{{ 'blog.A_19' | t }}</a><a href="https://www.janesicomfort.com/contact-us" class="footer1-link-2">{{ 'blog.A_20' | t }}</a></div>
+          <div id="w-node-5860412d4b74-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'blog.DIV_21' | t }}</div><a href="https://www.instagram.com/janesi.comfort/" target="_blank" class="footer1-link-2">{{ 'blog.A_22' | t }}</a></div>
+          <div id="w-node-5860412d4b79-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'blog.DIV_23' | t }}</div><a href="https://www.janesicomfort.com/terms" class="footer1-link-2">{{ 'blog.A_24' | t }}</a><a href="https://www.janesicomfort.com/privacy-policy" class="footer1-link-2">{{ 'blog.A_25' | t }}</a><a href="https://www.janesicomfort.com/contact-us" class="footer1-link-2">{{ 'blog.A_26' | t }}</a></div>
+          <div id="w-node-5860412d4b82-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'blog.DIV_27' | t }}</div><a href="mailto:info@janesicomfort.com" class="footer1-link-2">{{ 'blog.A_28' | t }}</a><a href="tel:917920-4642" class="footer1-link-2">{{ 'blog.A_29' | t }}</a></div>
+        </div>
+      </div>
+      <div class="section-8">
+        <div class="w-layout-grid footer1-bottom-grid-2">
+          <div id="w-node-5860412d4b8b-87e29718"><a href="http://pablodesigns.com/" target="_blank" class="footer1-bottom-link"> </a></div>
+          <div id="w-node-5860412d4b8e-87e29718"><a href="https://webflow.com" class="footer1-bottom-link">{{ 'blog.A_30' | t }}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5ee8babd86c636bd4b669763" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="{{ 'webflow.js' | asset_url }}" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+
+{% include 'notifications' %}{{ 'udesly-shopify.min.js' | asset_url | script_tag }}{{ 'option_selection.js' | shopify_asset_url | script_tag }}

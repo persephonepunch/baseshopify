@@ -1,0 +1,251 @@
+{% layout 'theme' %}
+      
+  <div data-collapse="medium" data-animation="default" data-duration="400" role="banner" class="navigation w-nav">
+    <div class="navigation-items"><a href="/" aria-current="page" class="logo-link w-nav-brand w--current"><img src="{{ 'janesiblue.png' | asset_url }}" width="220" alt="" class="logo-image"></a>
+      <div class="navigation-wrap">
+        <nav role="navigation" class="navigation-items w-nav-menu">{% for link in linklists['navigation-menu'].links %}<a href="{{ link.url }}" class="navigation-item w-nav-link">{{ link.title }}</a>{% endfor %}{% unless customer %}<a href="/account/login" class="login-item w-nav-link">{{ 'index.A_0' | t }}</a>{% endunless %}{% if customer %}<a href="/account" class="login-item w-nav-link">{{ 'index.A_1' | t }}</a>{% endif %}</nav>
+        <div data-node-type="commerce-cart-wrapper" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper"><a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink button cc-cart w-inline-block"><svg class="w-commerce-commercecartopenlinkicon" width="17px" height="17px" viewBox="0 0 17 17"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M2.60592789,2 L0,2 L0,0 L4.39407211,0 L4.84288393,4 L16,4 L16,9.93844589 L3.76940945,12.3694378 L2.60592789,2 Z M15.5,17 C14.6715729,17 14,16.3284271 14,15.5 C14,14.6715729 14.6715729,14 15.5,14 C16.3284271,14 17,14.6715729 17,15.5 C17,16.3284271 16.3284271,17 15.5,17 Z M5.5,17 C4.67157288,17 4,16.3284271 4,15.5 C4,14.6715729 4.67157288,14 5.5,14 C6.32842712,14 7,14.6715729 7,15.5 C7,16.3284271 6.32842712,17 5.5,17 Z" fill="currentColor" fill-rule="nonzero"></path></g></svg><div class="w-inline-block">{{ 'index.DIV_2' | t }}</div><div class="w-commerce-commercecartopenlinkcount cart-quantity-2" udy-el="cart-count">{{ cart.item_count }}</div></a>
+          <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal">
+            <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer">
+              <div class="w-commerce-commercecartheader">
+                <h4 class="w-commerce-commercecartheading">{{ 'index.H4_3' | t }}</h4><a href="#" data-node-type="commerce-cart-close-link" class="w-commerce-commercecartcloselink w-inline-block"><svg width="16px" height="16px" viewBox="0 0 16 16"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#333333"><polygon points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"></polygon></g></g></svg></a></div>
+              <div class="w-commerce-commercecartformwrapper">
+                <form data-node-type="commerce-cart-form" class="w-commerce-commercecartform {% if cart.item_count == 0 %}udesly-display-none{% endif %}">
+                  <ul role="list" class="mini-cart-list" udy-el="items-list">
+                    {% for item in cart.items %}<li class="mini-cart-list-item">
+                      <div class="product-row">
+                        <div class="mini-cart-left-block"><a href="/cart/change?line={{ forloop.index }}&amp;amp;quantity=0" class="remove-product-link w-inline-block" udy-el="remove-item"></a>
+                          <div class="mini-cart-image" style="background-image: url({{ item | img_url: 'master' }})"></div>
+                          <div class="product-info-wrapper-2 mini-cart-info-wrapper"><a href="{{ item.product.url }}">{{ item.product.title }}</a>
+                            <div class="text-block-79" href="/collections/vendors?q={{ item.vendor }}">{{ item.vendor }}</div>
+                          </div>
+                        </div>
+                        <div class="price-wrapper">
+                          <div class="mini-cart-price-wrapper">
+                            <div class="text-block-78">{{ item.quantity }}</div>
+                            <div class="text-block-76">{{ 'index.DIV_4' | t }}</div>
+                            <div class="text-block-78">{{ item.price | money }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>{% endfor %}
+                  </ul>
+                  
+                  
+                  <div class="w-commerce-commercecartfooter {% if cart.item_count == 0 %}udesly-display-none{% endif %}" udy-el="cart-actions">
+                    <div class="w-commerce-commercecartlineitem">
+                      <div>{{ 'index.DIV_5' | t }}</div>
+                      <div class="w-commerce-commercecartordervalue" udy-el="cart-total">{{ cart.total_price | money }}</div>
+                    </div>
+                    <div class="checkout-actions"><a href="/cart" value="Cart" data-node-type="cart-checkout-button" class="w-commerce-commercecartcheckoutbutton" data-loading-text="Hang Tight...">{{ 'index.A_6' | t }}</a><a href="/checkout" value="Checkout" data-node-type="cart-checkout-button" class="w-commerce-commercecartcheckoutbutton" data-loading-text="Hang Tight...">{{ 'index.A_7' | t }}</a></div>
+                  </div>
+                </form>
+                <div class="w-commerce-commercecartemptystate {% if cart.item_count != 0 %}udesly-display-none{% endif %}" udy-el="no-items-in-cart">
+                  <div>{{ 'index.DIV_8' | t }}</div>
+                </div>
+                <div style="display:none" data-node-type="commerce-cart-error" class="w-commerce-commercecarterrorstate">
+                  <div class="w-cart-error-msg" data-w-cart-quantity-error="Product is not available in this quantity." data-w-cart-checkout-error="Checkout is disabled on this site." data-w-cart-general-error="Something went wrong when adding this item to the cart." data-w-cart-cart_order_min-error="Cart failed.">{{ 'index.DIV_9' | t }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <script id="mini-cart-template">
+          window.udeslyMiniCartTemplate = function(item) {
+            return `<li class="mini-cart-list-item" data-item-id="${item.id}">
+                      <div class="product-row">
+                        <div class="mini-cart-left-block"><a href="${item.remove}" class="remove-product-link w-inline-block" udy-el="remove-item"></a>
+                          <div dimension="master" class="mini-cart-image" style="background-image: url(${item.image})"></div>
+                          <div class="product-info-wrapper-2 mini-cart-info-wrapper"><a href="#">${item.title}</a>
+                            <div class="text-block-79">${item.vendor}</div>
+                          </div>
+                        </div>
+                        <div class="price-wrapper">
+                          <div class="mini-cart-price-wrapper">
+                            <div class="text-block-78">${item.quantity}</div>
+                            <div class="text-block-76"> x</div>
+                            <div class="text-block-78">${item.price}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>`
+          }
+          </script></div>
+        <div class="menu-button w-nav-button"><img src="{{ 'menu-icon_1menu-icon.png' | asset_url }}" width="22" alt="" class="menu-icon"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="video">
+      <div data-poster-url="https://uploads-ssl.webflow.com/5df7c2225b69f62804bb9f1a/5e4b296baf843ff48225a8c5_robea-poster-00001.jpg" data-video-urls="videos/robea-poster-00001.jpg,videos/robea-transcode.mp4,videos/robea-transcode.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="background-video-3 w-background-video w-background-video-atom"><video autoplay="" loop="" style="background-image:url(&quot;https://uploads-ssl.webflow.com/5df7c2225b69f62804bb9f1a/5e4b296baf843ff48225a8c5_robea-poster-00001.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover"><source src="{{ 'robea-poster-00001.jpg' | asset_url }}" data-wf-ignore="true"><source src="{{ 'robea-transcode.mp4' | asset_url }}" data-wf-ignore="true"><source src="{{ 'robea-transcode.webm' | asset_url }}" data-wf-ignore="true"></video>
+        <div class="div-block-36"><img src="https://uploads-ssl.webflow.com/5e5ef9cf67962185eb01e19a/5e5ef9cf679621084801e44e_whitelogo.svg" width="400" alt="" class="image-37">
+          <a href="/collections" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a18" class="button-small kit-download-menu w-inline-block">
+            <div class="button-label">{{ 'index.DIV_10' | t }}</div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="outer-wrap">
+      <div class="navy-section">
+        <div class="div-side top">
+          <div class="white-left-2">
+            <div class="text-block-83">{{ 'index.DIV_11' | t }}<br><br></div>
+          </div>
+          <div class="right-box">
+            <h1 class="side-box-2">{{ 'index.H1_12' | t }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="section-3">
+        <div class="wrapper-2 centered-white">
+          <div class="div-side top">
+            <div class="white-left-2">
+              <div class="text-block-4 dark"><strong class="text-block-82 dark">{{ 'index.STRONG_13' | t }}</strong></div>
+            </div>
+            <div class="right-box">
+              <div class="div-block-15">
+                <h1 class="side-box-2 dark"><strong class="bold-text-14">{{ 'index.STRONG_14' | t }}</strong>{{ 'index.H1_15' | t }}<strong><br></strong></h1>
+              </div>
+              <div class="div-block-15">
+                <a href="/collections" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a36" class="button-small-2 side-bar black w-inline-block">
+                  <div>{{ 'index.DIV_16' | t }}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-2">
+        <div id="Janesi-Comfort" class="home1-deco-part"></div>
+      </div>
+      <div class="section-3 black">
+        <div class="wrapper-2 centered-white">
+          <div class="div-side top">
+            <div class="white-left-3">
+              <div><strong class="text-block-83">{{ 'index.STRONG_17' | t }}<br>{{ 'index.STRONG_18' | t }}<br>{{ 'index.STRONG_19' | t }}</strong></div>
+            </div>
+            <div class="right-block">
+              <div class="div-block-15">
+                <h1 class="side-box-2"><strong class="bold-text-14">{{ 'index.STRONG_20' | t }}</strong>{{ 'index.H1_21' | t }}<br>{{ 'index.H1_22' | t }}<strong><br></strong></h1>
+              </div>
+              <div class="div-block-15">
+                <a href="/pages/about" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a51" class="button-small-2 side-bar light w-inline-block">
+                  <div>{{ 'index.DIV_23' | t }}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div class="div-block-2-copy">
+            <div class="div-block-27">
+              <div class="div-block-5">
+                <h5 class="heading-19">{{ 'index.H5_24' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_25' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_26' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_27' | t }}<br></h5>
+                <div class="div-block-17">
+                  <a href="/pages/about" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a66" class="button-small-2 w-inline-block">
+                    <div class="text-block-84">{{ 'index.DIV_28' | t }}</div><img src="https://uploads-ssl.webflow.com/5e5ef9cf67962185eb01e19a/5e5ef9cf6796212f1b01e386_Arrow%402x.svg" alt="" class="button-arrow"></a>
+                </div>
+              </div>
+            </div>
+            <div class="div-block-3"><img src="{{ '011820_Janesi2395v2.jpg' | asset_url }}" alt="Indigo Janesi Signature Gown" srcset="{{ '011820_Janesi2395v2-p-500.jpeg' | asset_url }} 500w, {{ '011820_Janesi2395v2.jpg' | asset_url }} 1500w" sizes="(max-width: 991px) 100vw, (max-width: 3125px) 48vw, 1500px"></div>
+          </div>
+        </div>
+        <div>
+          <div class="div-block-2">
+            <div class="div-block-3"><img src="{{ '011820_Janesi_025v2.jpg' | asset_url }}" alt="Janesi Comfort" srcset="{{ '011820_Janesi_025v2-p-500.jpeg' | asset_url }} 500w, {{ '011820_Janesi_025v2-p-800.jpeg' | asset_url }} 800w, {{ '011820_Janesi_025v2-p-1080.jpeg' | asset_url }} 1080w, {{ '011820_Janesi_025v2.jpg' | asset_url }} 1500w" sizes="(max-width: 991px) 100vw, (max-width: 3125px) 48vw, 1500px"></div>
+            <div class="div-block-27">
+              <div class="div-block-5">
+                <h5 class="heading-19">{{ 'index.H5_29' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_30' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_31' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_32' | t }}<br></h5>
+                <div class="div-block-17">
+                  <a href="/pages/about" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a7f" class="button-small-2 w-inline-block">
+                    <div class="text-block-84">{{ 'index.DIV_33' | t }}</div><img src="https://uploads-ssl.webflow.com/5e5ef9cf67962185eb01e19a/5e5ef9cf6796212f1b01e386_Arrow%402x.svg" alt="" class="button-arrow"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="div-block-2-copy">
+            <div class="div-block-4-copy-2">
+              <div class="div-block-5">
+                <h5 class="heading-19">{{ 'index.H5_34' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_35' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_36' | t }}<br></h5>
+                <h5 class="heading-19">{{ 'index.H5_37' | t }}<br></h5>
+                <div class="div-block-17">
+                  <a href="#" data-w-id="f674c98b-3e0b-79eb-fd6b-1169ddb30a94" class="button-small-2 w-inline-block">
+                    <div class="text-block-84">{{ 'index.DIV_38' | t }}</div><img src="https://uploads-ssl.webflow.com/5e5ef9cf67962185eb01e19a/5e5ef9cf6796212f1b01e386_Arrow%402x.svg" alt="" class="button-arrow"></a>
+                </div>
+              </div>
+            </div>
+            <div class="div-block-3"><img src="{{ 'Photo-Jan-22-11-26-23-AMv2.jpg' | asset_url }}" alt="Long Term Care" id="Long-Term-Care" srcset="{{ 'Photo-Jan-22-11-26-23-AMv2-p-500.jpeg' | asset_url }} 500w, {{ 'Photo-Jan-22-11-26-23-AMv2-p-800.jpeg' | asset_url }} 800w, {{ 'Photo-Jan-22-11-26-23-AMv2-p-1080.jpeg' | asset_url }} 1080w, {{ 'Photo-Jan-22-11-26-23-AMv2.jpg' | asset_url }} 1500w" sizes="(max-width: 991px) 100vw, (max-width: 3125px) 48vw, 1500px"></div>
+          </div>
+        </div>
+        <div class="wrapper m50-100">
+          <div class="section-6">
+            <div class="w-layout-grid cta8-grid-2">
+              <div id="w-node-1169ddb30a9d-63669767" class="cta8-content-wrap">
+                <div class="cta8-headline-wrap">
+                  <div class="size3-text">{{ 'index.DIV_39' | t }}<br></div>
+                  <p class="paragraph-76">{{ 'index.P_40' | t }}<br></p>
+                </div>
+              </div>
+              <div id="w-node-1169ddb30aa5-63669767" class="cta8-form w-form">
+                <form id="email" name="email-form" data-name="Email Form" method="post" action="https://janesicomfort.us4.list-manage.com/subscribe/post?u=01d2c0bfc177659da127d1b56&amp;amp;id=46e1175186" class="cta8-form-wrap w-node-1169ddb30aa6-63669767"><input type="text" class="text-field-3 w-node-1169ddb30aa7-63669767 w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="Enter your name" id="name-3" required=""><input type="tel" class="text-field-3 w-node-1169ddb30aa8-63669767 w-input" maxlength="256" name="phone-3" data-name="Phone 3" placeholder="Enter your number" id="phone-3"><input type="email" class="text-field-3 w-node-1169ddb30aa9-63669767 w-input" maxlength="256" name="email-3" data-name="Email 3" placeholder="Enter your email" id="email-3" required=""><input type="submit" value="Submit" data-wait="Please wait..." id="w-node-1169ddb30aaa-63669767" class="button-small-2 form-centered-button w-button"></form>
+                <div class="success-message w-form-done">
+                  <div>{{ 'index.DIV_41' | t }}</div>
+                </div>
+                <div class="error-message w-form-fail">
+                  <div>{{ 'index.DIV_42' | t }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="sewing-fixed"></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-2"></div>
+  </div>
+  <div class="section">
+    <div class="section">
+      <div class="container"></div>
+    </div>
+    <div class="container"></div>
+    <div class="wrapper-3">
+      <div class="section-7">
+        <div class="w-layout-grid footer1-grid-2">
+          <div id="w-node-5860412d4b66-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'index.DIV_43' | t }}</div><a href="https://www.janesicomfort.com/shop/janesi-comfort-gown-black" class="footer1-link-2">{{ 'index.A_44' | t }}</a><a href="https://www.janesicomfort.com/blankets/blankets" class="footer1-link-2">{{ 'index.A_45' | t }}</a></div>
+          <div id="w-node-5860412d4b6d-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'index.DIV_46' | t }}</div><a href="https://www.janesicomfort.com/about" class="footer1-link-2">{{ 'index.A_47' | t }}</a><a href="https://www.janesicomfort.com/contact-us" class="footer1-link-2">{{ 'index.A_48' | t }}</a></div>
+          <div id="w-node-5860412d4b74-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'index.DIV_49' | t }}</div><a href="https://www.instagram.com/janesi.comfort/" target="_blank" class="footer1-link-2">{{ 'index.A_50' | t }}</a></div>
+          <div id="w-node-5860412d4b79-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'index.DIV_51' | t }}</div><a href="https://www.janesicomfort.com/terms" class="footer1-link-2">{{ 'index.A_52' | t }}</a><a href="https://www.janesicomfort.com/privacy-policy" class="footer1-link-2">{{ 'index.A_53' | t }}</a><a href="https://www.janesicomfort.com/contact-us" class="footer1-link-2">{{ 'index.A_54' | t }}</a></div>
+          <div id="w-node-5860412d4b82-87e29718" class="footer1-links-wrap">
+            <div class="size6-text">{{ 'index.DIV_55' | t }}</div><a href="mailto:info@janesicomfort.com" class="footer1-link-2">{{ 'index.A_56' | t }}</a><a href="tel:917920-4642" class="footer1-link-2">{{ 'index.A_57' | t }}</a></div>
+        </div>
+      </div>
+      <div class="section-8">
+        <div class="w-layout-grid footer1-bottom-grid-2">
+          <div id="w-node-5860412d4b8b-87e29718"><a href="http://pablodesigns.com/" target="_blank" class="footer1-bottom-link"> </a></div>
+          <div id="w-node-5860412d4b8e-87e29718"><a href="https://webflow.com" class="footer1-bottom-link">{{ 'index.A_58' | t }}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5ee8babd86c636bd4b669763" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="{{ 'webflow.js' | asset_url }}" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+
+{% include 'notifications' %}{{ 'udesly-shopify.min.js' | asset_url | script_tag }}{{ 'option_selection.js' | shopify_asset_url | script_tag }}
